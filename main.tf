@@ -3,7 +3,11 @@ provider "aws" {
 }
 
 terraform {
-  backend "s3" {}
+  backend "s3" {
+    bucket = "ecs-fargate-tf-remote-state"
+    key = "PROD/infrastructure.tfstate"
+    region = "us-east-1"
+  }
 }
 
 resource "aws_vpc" "production_vpc" {
