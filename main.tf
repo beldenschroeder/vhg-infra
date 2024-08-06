@@ -2,10 +2,16 @@ provider "aws" {
   region = "${var.region}"
 }
 
+# TODO: Consider removing this if it doesn't create a bucket
+resource "aws_s3_bucket" "backend" {
+  bucket_prefix = "ecs-fargate-tf-remote-state"
+}
+
 terraform {
   # TODO: Remove all the `s3` props if it's not creating the key
   backend "s3" {
-    bucket = "ecs-fargate-tf-remote-state"
+    # bucket = "ecs-fargate-tf-remote-state"
+    bucket = "${aws_s3_bucket.backend.bucket}"
     key = "PROD/infrastructure.tfstate"
     region = "us-east-1"
   }
