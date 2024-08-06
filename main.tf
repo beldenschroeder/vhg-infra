@@ -3,6 +3,7 @@ provider "aws" {
 }
 
 terraform {
+  # TODO: Remove all the `s3` props if it's not creating the key
   backend "s3" {
     bucket = "ecs-fargate-tf-remote-state"
     key = "PROD/infrastructure.tfstate"
