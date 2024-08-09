@@ -11,7 +11,7 @@ terraform {
   # TODO: Remove all the `s3` props if it's not creating the key
   backend "s3" {
     # bucket = "ecs-fargate-tf-remote-state"
-    bucket = "${aws_s3_bucket.backend.bucket}"
+    bucket = "${aws_s3_bucket.backend.0.id}"
     key = "PROD/infrastructure.tfstate"
     region = "us-east-1"
   }
