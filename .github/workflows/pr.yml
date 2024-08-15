@@ -39,9 +39,9 @@ jobs:
     - name: Terraform Init
       id: init
       env:
-        KEY: ${{ secrets.KEY }}
-        BUCKET: ${{ secrets.BUCKET }}
-        REGION: ${{ secrets.REGION }}
+        KEY: PROD/infrastructure.tfstate
+        BUCKET: ecs-fargate-tf-remote-state
+        REGION: us-east-1
       run: terraform init -backend-config="key=$KEY" -backend-config="bucket=$BUCKET" -backend-config="region=$REGION"
 
     # Run a terraform plan
