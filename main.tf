@@ -2,18 +2,24 @@ provider "aws" {
   region = "${var.region}"
 }
 
-# TODO: Consider removing this if it doesn't create a bucket
-resource "aws_s3_bucket" "backend" {
-  bucket_prefix = "ecs-fargate-tf-remote-state"
-}
+# # TODO: Consider removing this if it doesn't create a bucket
+# resource "aws_s3_bucket" "backend" {
+#   bucket_prefix = "ecs-fargate-tf-remote-state"
+# }
 
 terraform {
-  # TODO: Remove all the `s3` props if it's not creating the key
-  backend "s3" {
-    # bucket = "ecs-fargate-tf-remote-state"
-    bucket = "${aws_s3_bucket.backend.0.id}"
-    key = "PROD/infrastructure.tfstate"
-    region = "us-east-1"
+  # # TODO: Remove all the `s3` props if it's not creating the key
+  # backend "s3" {
+  #   # bucket = "ecs-fargate-tf-remote-state"
+  #   bucket = "${aws_s3_bucket.backend.0.id}"
+  #   key = "PROD/infrastructure.tfstate"
+  #   region = "us-east-1"
+  # }
+  cloud {
+    organization = "von-herff-gallery"
+    workspaces {
+      name = "vhg-infra"
+    }
   }
 }
 
